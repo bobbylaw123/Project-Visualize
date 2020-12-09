@@ -39,13 +39,17 @@ def dataFrameCleaner(dataLink, rawLink, dfList):
             dataFrameCleaned = dataFrame[[                          'Admin2', 'Province_State', 'Lat', 'Long_', 'Confirmed', 'Deaths',
                                                                     'Recovered', 'Active', 'Combined_Key']]
 
-            dataFrameCleaned = dataFrameCleaned.rename(columns={    'Admin2': 'City',
-                                                                    'Province_State': 'State',
-                                                                    'Lat': 'Latitude',
-                                                                    'Long_': 'Longitude',
-                                                                    'Combined_Key': 'Location'})
+            dataFrameCleaned = dataFrameCleaned.rename(columns={    'Admin2': 'city',
+                                                                    'Province_State': 'state',
+                                                                    'Lat': 'latitude',
+                                                                    'Long_': 'longitude',
+                                                                    'Confirmed': 'confirmed',
+                                                                    'Deaths': 'deaths',
+                                                                    'Recovered': 'recovered',
+                                                                    'Active': 'active',
+                                                                    'Combined_Key': 'location'})
 
-            dataFrameCleaned = dataFrameCleaned.dropna(subset = ["City"])
+            dataFrameCleaned = dataFrameCleaned.dropna(subset = ["city"])
 
             dfList.append(dataFrameCleaned)
             title = dataLink.replace('.csv', '')

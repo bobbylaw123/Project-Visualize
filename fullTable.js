@@ -9,7 +9,7 @@ const client = new Client({
 
 client.connect()
 .then(() => console.log("Connected Successfully"))
-.then(() => client.query("select * from april_01_2020 where state = $1", ["New Jersey"]))
+.then(() => client.query("select * from april_01_2020"))
 .then(results => console.table(results.rows))
 .catch(e => console.log(e))
 .finally(() => client.end())
