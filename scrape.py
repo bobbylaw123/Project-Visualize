@@ -1,6 +1,6 @@
 from bs4 import BeautifulSoup as bs
 from requests import get
-import pandas
+import pandas as pd
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import create_engine
@@ -31,19 +31,21 @@ def dataFrameCleaner(dataLink, rawLink, dfList):
 
     if dataLink != '.gitignore' and dataLink != 'README.md':
         rawDataLink = rawLink + dataLink
-        dataFrame = pandas.read_csv(rawDataLink, index_col=0)
+        dataFrame = pd.read_csv(rawDataLink, index_col=0)
         my_list = dataFrame.columns.values.tolist()
 
         if 'Admin2' in my_list:
                         
             dataFrameCleaned = dataFrame[[                          'Admin2', 'Province_State', 'Lat', 'Long_', 'Confirmed', 'Deaths',
                                                                     'Recovered', 'Active', 'Combined_Key']]
-            
+
             dataFrameCleaned = dataFrameCleaned.rename(columns={    'Admin2': 'City',
                                                                     'Province_State': 'State',
                                                                     'Lat': 'Latitude',
                                                                     'Long_': 'Longitude',
                                                                     'Combined_Key': 'Location'})
+
+            dataFrameCleaned = dataFrameCleaned.dropna(subset = ["City"])
 
             dfList.append(dataFrameCleaned)
             title = dataLink.replace('.csv', '')
