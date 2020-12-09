@@ -38,15 +38,48 @@ def dataFrameCleaner(dataLink, rawLink, dfList):
                         
             dataFrameCleaned = dataFrame[[                          'Admin2', 'Province_State', 'Lat', 'Long_', 'Confirmed', 'Deaths',
                                                                     'Recovered', 'Active', 'Combined_Key']]
-            
-            dataFrameCleaned = dataFrameCleaned.rename(columns={    'Admin2': 'City',
-                                                                    'Province_State': 'State',
-                                                                    'Lat': 'Latitude',
-                                                                    'Long_': 'Longitude',
-                                                                    'Combined_Key': 'Location'})
+
+            dataFrameCleaned = dataFrameCleaned.rename(columns={    'Admin2': 'city',
+                                                                    'Province_State': 'state',
+                                                                    'Lat': 'latitude',
+                                                                    'Long_': 'longitude',
+                                                                    'Confirmed': 'confirmed',
+                                                                    'Deaths': 'deaths',
+                                                                    'Recovered': 'recovered',
+                                                                    'Active': 'active',
+                                                                    'Combined_Key': 'location'})
+
+            dataFrameCleaned = dataFrameCleaned.dropna(subset = ["city"])
 
             dfList.append(dataFrameCleaned)
             title = dataLink.replace('.csv', '')
+            title = title.replace("-", "_")
+
+            if title.startswith("01"):
+                title = title.replace("01", "january", 1)
+            elif title.startswith("02"):
+                title = title.replace("02", "febraury", 1)
+            elif title.startswith("03"):
+                title = title.replace("03", "march", 1)
+            elif title.startswith("04"):
+                title = title.replace("04", "april", 1)
+            elif title.startswith("05"):
+                title = title.replace("05", "may", 1)
+            elif title.startswith("06"):
+                title = title.replace("06", "june", 1)
+            elif title.startswith("07"):
+                title = title.replace("07", "july", 1)
+            elif title.startswith("08"):
+                title = title.replace("08", "august", 1)
+            elif title.startswith("09"):
+                title = title.replace("09", "september", 1)
+            elif title.startswith("10"):
+                title = title.replace("10", "october", 1)
+            elif title.startswith("11"):
+                title = title.replace("11", "november", 1)
+            elif title.startswith("12"):
+                title = title.replace("12", "december", 1)
+
             dataFrameCleaned.to_sql(name = title, con = engine, if_exists = "append", index = False)
             
     return dfList
