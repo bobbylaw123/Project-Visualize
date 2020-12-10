@@ -2,13 +2,11 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import create_engine
 import scrape
+from loginInfo import username, password
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-username = "postgres"
-password = "postgres"
-postgreslog = f"{username}:{password}@localhost:5432/covid_cases"
-engine = create_engine(f"postgresql://{postgreslog}")
+engine = create_engine(f"postgresql://{username}:{password}@localhost:5432/covid_cases")
 app.config['SQLALCHEMY_DATABASE_URI'] = engine
 db = SQLAlchemy(app)
 
