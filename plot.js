@@ -1,34 +1,32 @@
-// Create two arrays, each of which will hold data for a different trace
-var y0 = [];
-var y1 = [];
+d3.csv("test.csv").then((response) => {
 
-// Fill each of the above arrays with randomly generated data
-for (var i = 0; i < 50; i++) {
-  y0.push(Math.random());
-  y1.push(Math.random() + 1);
-}
+  console.log(response);
 
-// Create a trace object with the data in `y0`
-var trace1 = {
-  y: y0,
-  // boxpoints: "all",
-  type: "box"
-};
+  var deaths = 0;
+  var recovered = 0;
+  var active = 0;
 
-// Create a trace object with the data in `y1`
-var trace2 = {
-  y: y1,
-  // boxpoints: "all",
-  type: "box"
-};
+  response.forEach(element => {
+    deaths = parseInt(element.Deaths) + deaths;
+    recovered = parseInt(element.Recovered) + recovered;
+    active = parseInt(element.Active) + active;
+  });
 
-// Create a data array with the above two traces
-var data = [trace1, trace2];
+  console.log(deaths);
+  console.log(recovered);
+  console.log(active);
 
-// Use `layout` to define a title
-var layout = {
-  title: "Basic Box Plot"
-};
-
-// Render the plot to the `plot1` div
-Plotly.newPlot("plot1", data, layout);
+  var data = [{
+    values: [deaths, recovered, active],
+    labels: ['Deaths', 'Recovered', 'Active'],
+    type: 'pie'
+  }];
+  
+  var layout = {
+    title: 'COVID-19 3/12/2020 Cases',
+    height: 400,
+    width: 500
+  };
+  
+  Plotly.newPlot('pie', data, layout);
+});
