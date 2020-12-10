@@ -1,0 +1,3 @@
+import scrape
+
+scrape.scraper()
