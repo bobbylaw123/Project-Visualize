@@ -1,4 +1,4 @@
-d3.csv("test.csv").then((response) => {
+d3.json("/plot").then((response) => {
 
   console.log(response);
 
@@ -23,10 +23,10 @@ d3.csv("test.csv").then((response) => {
   }];
   
   var layout = {
-    title: 'COVID-19 3/12/2020 Cases',
+    title: 'COVID-19 US Daily Cases',
     height: 400,
     width: 500
   };
   
-  Plotly.newPlot('pie', data, layout);
+  Plotly.newPlot('plot', data, layout);
 });
