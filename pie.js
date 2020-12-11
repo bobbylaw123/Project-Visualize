@@ -10,40 +10,51 @@ d3.json("/pie").then((response) => {
     console.log(recovered);
     console.log(active);
 
-    var trace1 = {
-        x: response.state,
-        y: deaths,
-        name: 'Deaths',
-        type: 'bar'
-    };
+    var data = [2, 4, 8, 10];
 
-    var trace2 = {
-        x: response.state,
-        y: recovered,
-        name: 'Recovered',
-        type: 'bar'
-    };
+    var svg = d3.select("svg"),
+        width = svg.attr("width"),
+        height = svg.attr("height"),
+        radius = Math.min(width, height) / 2,
+        g = svg.append("g").attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 
-    var trace3 = {
-        x: response.state,
-        y: active,
-        name: 'Active',
-        type: 'bar'
-    };
+    var color = d3.scaleOrdinal(['#4daf4a', '#377eb8', '#ff7f00', '#984ea3', '#e41a1c']);
 
-    var data = [trace1, trace2, trace3];
+    var pie = d3.pie().value(function(d) { 
+        return d.percent; 
+        });
 
-    var data = [{
-        values: [deaths, recovered, active],
-        labels: ['Deaths', 'Recovered', 'Active'],
-        type: 'pie'
-    }];
+    var arc = d3.arc()
+        .innerRadius(0)
+        .outerRadius(radius);
+        
+    var label = d3.arc()
+        .outerRadius(radius)
+        .innerRadius(radius - 80);        
+
+    var arcs = g.selectAll("arc")
+        .data(pie(data))
+        .enter()
+        .append("g")
+        .attr("class", "arc")
+
+    arcs.append("path")
+        .attr("fill", function (d, i) {
+            return color(i);
+        })
+        .attr("d", arc);
+
+    arcs.append("text")
+        .attr("transform", function(d) { 
+                return "translate(" + label.centroid(d) + ")"; 
+        })
+        .text(function(d) { return d.data.i; });
 
     var layout = {
         title: 'COVID-19 US Daily Cases',
         height: 400,
         width: 500
     };
-
-    Plotly.newPlot('piepg', data, layout);
+    
+    Plotly.newPlot('bar', data, layout);
 });
