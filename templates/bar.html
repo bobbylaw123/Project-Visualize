@@ -1,23 +1,18 @@
 {% extends 'base.html' %}
 
-{% block title %}About this Project{% endblock %}
+{% block title %}Bar Graph of Covid Cases by Day{% endblock %}
 
 {% block content %}
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Covid Cases on Current, Death, and Recoveries by Day</title>
-    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-    <script src="https://d3js.org/d3.v6.min.js"></script>
-</head>
-
 <body>
     
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="https://d3js.org/d3.v6.min.js"></script>
     <select id = "dropdown"></select>
-    <div id="bar" style="width: 100%; height: 100%;"></div>
     <script src="../static/js/bar.js"></script>
 
+    <div id="bar" style="width: 90%; height: 90%;"></div>
+    
 </body>
 
 {% endblock %}

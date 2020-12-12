@@ -45,22 +45,30 @@ d3.json("/table_names").then((response) => {
           var data = [trace1, trace2, trace3];
         
           var layout = {
-            title: 'Daily New Cases/Deaths/Recoveries on Selected Day',
+            title: 'Covid Cases on Active Cases, Deaths and Recoveries by Day',
+            titlefont: {
+              size:40,
+              color: 'rgb(107, 107, 107)'
+            },
             xaxis: {
               title: 'US States',
+              titlefont: {
+                size:30,
+                color: 'rgb(107, 107, 107)'
+              },
               tickfont: {
-                size: 14,
+                size: 13,
                 color: 'rgb(107, 107, 107)'
               }
             },
             yaxis: {
-              title: 'cases',
+              title: 'Cases by Active, Deaths and Recoveries',
               titlefont: {
-                size: 16,
+                size: 30,
                 color: 'rgb(107, 107, 107)'
               },
               tickfont: {
-                size: 14,
+                size: 15,
                 color: 'rgb(107, 107, 107)'
               }
             },
