@@ -22,13 +22,20 @@ def about():
     names = ["Jeff Chow", "Abhijit Purru", "Elise Eng"]
     return render_template("about.html", names = names)
 
-@app.route('/bars')
-def bars():
-    return render_template("bar.html")
+# All the names of the tables to be listed in the drop down menu.
+@app.route('/table_names')
+def table_names():
+    name = engine.execute("""   SELECT table_name FROM information_schema.tables
+                                WHERE table_schema='public'""").fetchall()
 
+    print (name)
+    return json.dumps([dict(r) for r in name])
+
+# Pulls data from the requested date on the drop down menu to json string.
 @app.route('/bar')
 def bar():
     
+    # The drop down menu's requested date input
     requested_date = request.args.get('requested_date')
 
     if requested_date is None:
@@ -37,7 +44,6 @@ def bar():
                                     order by state""").fetchall()
 
     else:
-    
         results = engine.execute(f"""select state, sum(deaths), sum(recovered), sum(active)
                                     from {requested_date} group by state
                                     order by state""").fetchall()
@@ -61,13 +67,10 @@ def bar():
     print(results_dic)
     return jsonify(results_dic)
 
-@app.route('/table_names')
-def table_names():
-    name = engine.execute("""   SELECT table_name FROM information_schema.tables
-                                WHERE table_schema='public'""").fetchall()
-
-    print (name)
-    return json.dumps([dict(r) for r in name])
+# Sending info from jsonify data pulled from previous route into bar.html to form bar chart.
+@app.route('/bars')
+def bars():
+    return render_template("bar.html")
 
 @app.route('/piepg')
 def piepg():
