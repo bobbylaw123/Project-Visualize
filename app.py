@@ -1,11 +1,11 @@
-from flask import Flask, render_template, request, redirect, jsonify
-from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import create_engine
+import json
 import scrape
 import scrapeLatest
 import psycopg2
+from flask import Flask, render_template, request, redirect, jsonify
+from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import create_engine
 from Postgres_Login import username, password, database
-import json
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -38,13 +38,17 @@ def bar():
     # The drop down menu's requested date input
     requested_date = request.args.get('requested_date')
 
-    if requested_date is None:
-        results = engine.execute(f"""select state, sum(deaths), sum(recovered), sum(active)
-                                    from latest_data group by state
-                                    order by state""").fetchall()
+    # if requested_date is None:
+    #     results = engine.execute(f"""select state, sum(deaths), sum(recovered), sum(active)
+    #                                 from latest_data group by state
+    #                                 order by state""").fetchall()
 
-    else:
-        results = engine.execute(f"""select state, sum(deaths), sum(recovered), sum(active)
+    # else:
+    #     results = engine.execute(f"""select state, sum(deaths), sum(recovered), sum(active)
+    #                                 from {requested_date} group by state
+    #                                 order by state""").fetchall()
+
+    results = engine.execute(f"""   select state, sum(deaths), sum(recovered), sum(active)
                                     from {requested_date} group by state
                                     order by state""").fetchall()
 
