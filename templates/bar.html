@@ -1,18 +1,42 @@
 {% extends 'base.html' %}
 
-{% block title %}Bar Graph of Covid Cases by Day{% endblock %}
+{% block title %}Total Covid Cases by Day{% endblock %}
 
 {% block content %}
 
-<h3>
+<h4>
     
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
     <script src="https://d3js.org/d3.v6.min.js"></script>
     <select id = "dropdown"></select>
     <script src="../static/js/bar.js"></script>
 
-    <div id="bar" style="width: 90%; height: 90%;"></div>
+    <div id="bar" style="width: 100%; height: 100%;"></div>
     
-</h3>
+</h4>
+
+<br/>
+<br/>
+
+<div style="margin-left: 12em; margin-right: 12em;">
+
+    <p>
+        Unfortunate Problems with the Data
+    </p>
+
+    <body>
+        We ran into some problems with the data. The source didn't actually keep track of any of the 
+        recovered cases like we assumed they had since the column was there. 
+        Maybe they're searching for a reliable source to pull from to update in the future. 
+        That's just an educated guess since they did something similar. In the first couple of days, 
+        there were no active cases recorded. It was on April 12, 2020 onward that they 
+        included the total number of cases.
+    </body>
+
+</div>
+
+
+
+
 
 {% endblock %}

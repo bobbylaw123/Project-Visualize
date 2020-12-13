@@ -38,13 +38,13 @@ function createChart(requested_date) {
       title: 'Latest Update On Total number of Active Cases, Deaths and Recoveries',
       titlefont: {
         size:30,
-        color: 'rgb(107, 107, 107)'
+        color: 'rgb(0, 0, 139)'
       },
       xaxis: {
         title: 'US States',
         titlefont: {
           size:23,
-          color: 'rgb(107, 107, 107)'
+          color: 'rgb(0, 0, 139)'
         },
         tickfont: {
           size: 10,
@@ -55,7 +55,7 @@ function createChart(requested_date) {
         title: 'Total Cases by Active, Deaths and Recoveries',
         titlefont: {
           size: 13,
-          color: 'rgb(107, 107, 107)'
+          color: 'rgb(0, 0, 139)'
         },
         tickfont: {
           size: 13,
@@ -126,16 +126,16 @@ dropdownMenu.addEventListener("change", (event)=>{
         var data = [trace1, trace2, trace3];
       
         var layout = {
-          title: 'Update On Total number of Active Cases, Deaths and Recoveries by Requested Date',
+          title: 'Total Number of Active Cases, Deaths and Recoveries by Requested Date',
           titlefont: {
             size:30,
-            color: 'rgb(107, 107, 107)'
+            color: 'rgb(0, 0, 139)'
           },
           xaxis: {
             title: 'US States',
             titlefont: {
               size:23,
-              color: 'rgb(107, 107, 107)'
+              color: 'rgb(0, 0, 139)'
             },
             tickfont: {
               size: 10,
@@ -146,7 +146,7 @@ dropdownMenu.addEventListener("change", (event)=>{
             title: 'Total Cases by Active, Deaths and Recoveries',
             titlefont: {
               size: 13,
-              color: 'rgb(107, 107, 107)'
+              color: 'rgb(0, 0, 139)'
             },
             tickfont: {
               size: 13,

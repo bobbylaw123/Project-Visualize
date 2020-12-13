@@ -38,22 +38,9 @@ def bar():
     # The drop down menu's requested date input
     requested_date = request.args.get('requested_date')
 
-    # if requested_date is None:
-    #     results = engine.execute(f"""select state, sum(deaths), sum(recovered), sum(active)
-    #                                 from latest_data group by state
-    #                                 order by state""").fetchall()
-
-    # else:
-    #     results = engine.execute(f"""select state, sum(deaths), sum(recovered), sum(active)
-    #                                 from {requested_date} group by state
-    #                                 order by state""").fetchall()
-
     results = engine.execute(f"""   select state, sum(deaths), sum(recovered), sum(active)
                                     from {requested_date} group by state
                                     order by state""").fetchall()
-
-    # results = [(state, deaths, recovered, active), (state, deaths, recovered, active)...]
-    # results = {"state": ["Alabama", "Arizona", ...], "deaths": [deaths1, deaths2,...], }
 
     states_list = []
     deaths_list = []

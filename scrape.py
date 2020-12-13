@@ -1,16 +1,14 @@
+import pandas as pd
 from bs4 import BeautifulSoup as bs
 from requests import get
-import pandas as pd
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import create_engine
+from Postgres_Login import username, password, database
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-username = "postgres"
-password = "postgres"
-postgreslog = f"{username}:{password}@localhost:5432/covid_cases"
-engine = create_engine(f"postgresql://{postgreslog}")
+engine = create_engine(f"postgresql://{username}:{password}@localhost:5432/{database}")
 app.config['SQLALCHEMY_DATABASE_URI'] = engine
 db = SQLAlchemy(app)
 

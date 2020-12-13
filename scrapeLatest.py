@@ -1,11 +1,11 @@
+import pandas as pd
+import psycopg2
 from bs4 import BeautifulSoup as bs
 from requests import get
-import pandas as pd
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import create_engine
 from Postgres_Login import username, password, database
-import psycopg2
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False

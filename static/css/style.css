@@ -6,7 +6,7 @@ h1 {
 }
 
 h3 {
-  color: rgb(25, 0, 255);
+  color: rgb(0, 0, 139);
   text-align: center;
   font-size: 40px;
 }
@@ -21,20 +21,21 @@ h5 {
   font-size: 20px;
 }
 
-section {
+/* section {
   background-color: #000;
-}
+} */
 
 p {
-  font-size: 50px;
-  color: #b629c8;
+  font-size: 30px;
+  color: #ffffff;
 }
 
 /* li {
   font-size: 30px;
 } */
 
-/* body {
+body {
   text-align: center;
-  background-color: rgb(0, 0, 0);
-} */
+  font-size: 20px;
+  color: #ffffff;
+}
