@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %}About this Project{% endblock %}
+
+{% block content %}
+
+    <div class = "container">
+        <br/>
+        <h1>Project Contributors</h1>
+        <h4>
+            {% for name in names %}
+                <li>{{name}}</li>
+            {% endfor %}
+        </h4>
+        <br/>
+        <h1>Project's Data Source.</h1>
+        <p>
+            <a href= "https://github.com/CSSEGISandData/COVID-19/tree/master/csse_covid_19_data/csse_covid_19_daily_reports" target = "_blank">Covid-19 Daily Reports</a>
+        </p>
+        <br/>
+        <h1>Our Goal</h1>
+        <p>
+            To showcase how much Covid-19 has spread across the United States.
+        </p>
+    </div>
+
+{% endblock %}
