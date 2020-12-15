@@ -68,11 +68,11 @@ def bar():
 def bars():
     return render_template("bar.html")
 
-@app.route('/line')
-def line():
+@app.route('/hist')
+def hist():
     # change december_09_2020 to latest_data in production
     results = engine.execute(f"""select state, sum(deaths), sum(confirmed)
-    from december_09_2020 group by state
+    from latest_data group by state
     order by state""").fetchall()
 
     states_list = []
@@ -90,9 +90,9 @@ def line():
     print(results_dic)
     return jsonify(results_dic)
 
-@app.route('/linepg')
-def linepg():
-    return render_template("line.html")
-        
+@app.route('/histpg')
+def histpg():
+    return render_template("hist.html")
+
 if __name__ == "__main__":
     app.run(debug=True)
