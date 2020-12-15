@@ -16,9 +16,9 @@ def index():
     return render_template("index.html")
 
 
-@app.route('/piepg')
-def piepg():
-    return render_template("pie.html")
+@app.route('/linepg')
+def linepg():
+    return render_template("line.html")
 
 
 @app.route('/bars')
@@ -32,25 +32,24 @@ def about():
     return render_template("about.html", names=names)
 
 
-@app.route('/pie')
-def pie():
-    results = engine.execute("""select state, sum(deaths), sum(recovered), sum(active)
-from december_09_2020 group by state
-order by state""").fetchall()
+@app.route('/line')
+def line():
+    results = engine.execute(f"""   select state, sum(deaths), sum(confirmed)
+                                from latest_data group by state
+                                order by state""").fetchall()
 
     states_list = []
     deaths_list = []
     recovered_list = []
-    active_list = []
-    for state, deaths, recovered, active in results:
-        states_list.append(state)
-        deaths_list.append(int(deaths))
-        recovered_list.append(int(recovered))
-        active_list.append(int(active))
-
+    confirmed_list = []
+for state, deaths, confirmed in results:
+    recovered = (int(confirmed)-int(deaths))
+    states_list.append(state)
+    deaths_list.append(int(deaths))
+    recovered_list.append(int(recovered))
+    confirmed_list.append(int(confirmed))
     results_dic = {"state": states_list, "deaths": deaths_list,
-                   "recovered": recovered_list, "active": active_list}
-
+               "recovered": recovered_list, "confirmed": confirmed_list}
     print(results_dic)
     return jsonify(results_dic)
 
