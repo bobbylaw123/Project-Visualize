@@ -1,16 +1,14 @@
+import pandas as pd
 from bs4 import BeautifulSoup as bs
 from requests import get
-import pandas as pd
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import create_engine
+from Postgres_Login import username, password, database
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-username = "postgres"
-password = "postgres"
-postgreslog = f"{username}:{password}@localhost:5432/covid_cases"
-engine = create_engine(f"postgresql://{postgreslog}")
+engine = create_engine(f"postgresql://{username}:{password}@localhost:5432/{database}")
 app.config['SQLALCHEMY_DATABASE_URI'] = engine
 db = SQLAlchemy(app)
 
@@ -29,7 +27,7 @@ def scraper():
 
 def dataFrameCleaner(dataLink, rawLink, dfList):
 
-    if dataLink != '.gitignore' and dataLink != 'README.md':
+    if dataLink != '.gitignore' and dataLink != 'README.md' and dataLink != '03-22-2020.csv' and dataLink != '03-23-2020.csv' and dataLink != '03-24-2020.csv' and dataLink != '03-25-2020.csv' and dataLink != '03-26-2020.csv' and dataLink != '03-27-2020.csv' and dataLink != '03-28-2020.csv' and dataLink != '03-29-2020.csv' and dataLink != '03-30-2020.csv' and dataLink != '03-31-2020.csv' and dataLink != '04-01-2020.csv' and dataLink != '04-02-2020.csv' and dataLink != '04-03-2020.csv' and dataLink != '04-04-2020.csv' and dataLink != '04-05-2020.csv' and dataLink != '04-06-2020.csv' and dataLink != '04-07-2020.csv' and dataLink != '04-08-2020.csv' and dataLink != '04-09-2020.csv' and dataLink != '04-10-2020.csv' and dataLink != '04-11-2020.csv':
         rawDataLink = rawLink + dataLink
         dataFrame = pd.read_csv(rawDataLink, index_col=0)
         my_list = dataFrame.columns.values.tolist()
@@ -49,7 +47,7 @@ def dataFrameCleaner(dataLink, rawLink, dfList):
                                                                     'Active': 'active',
                                                                     'Combined_Key': 'location'})
 
-            dataFrameCleaned = dataFrameCleaned.dropna(subset = ["city"])
+            dataFrameCleaned = dataFrameCleaned.dropna()
 
             dfList.append(dataFrameCleaned)
             title = dataLink.replace('.csv', '')
@@ -83,3 +81,5 @@ def dataFrameCleaner(dataLink, rawLink, dfList):
             dataFrameCleaned.to_sql(name = title, con = engine, if_exists = "append", index = False)
             
     return dfList
+
+scraper()
