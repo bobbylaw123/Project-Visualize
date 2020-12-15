@@ -36,9 +36,9 @@ d3.json("/hist").then((response) => {
   var data = [trace2, trace3, trace1];
 
   var layout = {
-    title: 'Histogram of COVID-19 US Daily Cases',
-    xaxis: {title: "Value"},
-    yaxis: {title: "Cases Count"},
+    title: 'Total of COVID-19 US Cases by State',
+    xaxis: {title: "Number of Cases AKA Per Person With Covid-19"},
+    yaxis: {title: "Cases Per State"},
     height: 800,
     width: 900,
     barmode: "stack"

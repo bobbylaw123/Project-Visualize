@@ -1,17 +1,21 @@
 import json
-#import scrape
-#import scrapeLatest
+# import scrape
+# import scrapeLatest
 from flask import Flask, render_template, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import create_engine
 from Postgres_Login import username, password, database
 
+# Flask Startup
 app = Flask(__name__)
+
+# Database Connection
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 engine = create_engine(f"postgresql://{username}:{password}@localhost:5432/{database}")
 app.config['SQLALCHEMY_DATABASE_URI'] = engine
 db = SQLAlchemy(app)
 
+# Initial 
 @app.route('/')
 def index():
     return render_template("index.html")
@@ -98,7 +102,7 @@ def maps():
 
 @app.route('/hist')
 def hist():
-    # change december_09_2020 to latest_data in production
+    # Using only latest_data.
     results = engine.execute(f"""select state, sum(deaths), sum(confirmed)
     from latest_data group by state
     order by state""").fetchall()
